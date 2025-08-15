@@ -1,0 +1,16 @@
+{
+  "roundId": "1234",
+  "vaultTimer": {
+    "minSeconds": 10,
+    "maxSeconds": 180,
+    "randomSeed": "a1b2c3d4",
+    "unlockSecond": 72
+  },
+  "bettingWindow": { "start": 0, "end": 5 },
+  "specialEvents": {
+    "quickBurst": { "enabled": true, "chance": 0.05, "durationRange": [1, 8], "multiplierRange": [50, 150] },
+    "bonusVault": { "enabled": true, "chance": 0.03, "windowDuration": 0.5, "instantWinMultiplier": 10 }
+  },
+  "houseEdge": 0.02,
+  "payoutMultipliers": { "default": 1.9, "stableGuess": 3.0 }
+}
