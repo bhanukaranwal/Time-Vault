@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount the backend code for live reloading
+      - ./backend:/app/backend
+      # Mount the docs so the event config can be read
+      - ./docs:/app/docs
+      # Persist the audit log file
+      - ./provably_fair_audit.log:/app/provably_fair_audit.log
+    command: uvicorn backend.app:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mount the frontend code for live reloading
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+    environment:
+      # Enables hot-reloading within Docker
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - backend

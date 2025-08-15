@@ -1,0 +1,36 @@
+# EVENT_config.yaml
+# Configuration for special, time-limited game events.
+# This file defines the parameters for events that modify the standard game rules.
+
+events:
+  - name: GoldenHour
+    description: "All rounds have their final multipliers boosted for one hour. A great time for high payouts!"
+    enabled: true
+    start_time: "2025-08-20T18:00:00Z"
+    end_time: "2025-08-20T19:00:00Z"
+    # The game logic will check if the current time falls within this window.
+    # If so, it applies the multiplierBoost to all winning payouts.
+    effects:
+      multiplierBoost: 1.2 # A 20% boost to the final payout multiplier.
+
+  - name: JackpotCascade
+    description: "A high-speed event featuring five rapid-fire vault rounds in succession with a massive jackpot potential."
+    enabled: true
+    # This event could be triggered manually by an admin or based on a schedule.
+    # The 'frequency' property suggests a recurring schedule.
+    frequency: weekly # e.g., "Every Friday at 20:00Z"
+    roundsPerEvent: 5
+    bettingWindowSeconds: 3 # Shorter betting window for more excitement.
+    interRoundDelaySeconds: 5 # Less time between rounds.
+    effects:
+      # A special multiplier applied if a player wins multiple rounds during the cascade.
+      jackpotMultiplier: 5.0
+
+  - name: QuickBurstFrenzy
+    description: "For 30 minutes, the chance of a 'Quick Burst' round is dramatically increased."
+    enabled: false # This event is currently disabled.
+    start_time: "2025-09-01T12:00:00Z"
+    end_time: "2025-09-01T12:30:00Z"
+    effects:
+      # Overrides the default chance from round_schema.json
+      quickBurstChance: 0.25 # Increased from 5% to 25%
